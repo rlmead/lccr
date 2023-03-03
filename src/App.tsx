@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row } from 'reactstrap';
+import { Navbar, Nav, Container, Row, Col } from 'reactstrap';
 import ColorBar from './components/ColorBar';
-import Footer from './components/Footer';
+import Header from './components/Header';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -62,7 +62,7 @@ function App() {
     let newTally = 0
     for (const color in itemCounts) {
       if (color != 'Pink') {
-        let increment = (prices[color]['high'] - prices[color]['low'])/100
+        let increment = (prices[color]['high'] - prices[color]['low']) / 100
         console.log(increment)
         let itemCost = prices[color]['low'] + (multiplier * increment)
         newTally += itemCounts[color] * itemCost
@@ -78,27 +78,38 @@ function App() {
   }, [itemCounts, multiplier])
 
   return (
-    <Container>
-      <Row
-        style={{ color: 'black' }}>
-        Tally: ${tally.toFixed(2)}
-      </Row>
+    <>
       {
-        Object.keys(prices).map((colorName) => {
-          return (
-            ColorBar(
-              colorName,
-              prices[colorName]['hex'],
-              prices[colorName]['low'],
-              prices[colorName]['high'],
-              handleItemCounts
-            )
-          )
-        })
-      }{
-        Footer(handleMultiplier)
+        Header(handleMultiplier)
       }
-    </Container>
+      <Container>
+        {
+          Object.keys(prices).map((colorName) => {
+            return (
+              ColorBar(
+                colorName,
+                prices[colorName]['hex'],
+                prices[colorName]['low'],
+                prices[colorName]['high'],
+                handleItemCounts
+              )
+            )
+          })
+        }
+        <Navbar
+          className='m-0 p-0 fixed-bottom display-5'
+          style={{ backgroundColor: '#732982' }}
+        >
+          <Row className='mx-auto slidecontainer display-5'>
+            <Col
+              className='col-12 d-flex justify-content-center text-center'
+            >
+              Tally: ${tally.toFixed(2)}
+            </Col>
+          </Row>
+        </Navbar>
+      </Container>
+    </>
   );
 }
 
