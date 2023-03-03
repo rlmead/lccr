@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'reactstrap';
 import ColorBar from './components/ColorBar';
+import Footer from './components/Footer';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -53,14 +54,17 @@ function App() {
     setItemCounts({ ...itemCounts, [colorName]: count });
   };
 
+  const handleMultiplier = (value: number) => {
+    setMultiplier(value)
+  }
+
   const calculate = () => {
     let newTally = 0
     for (const color in itemCounts) {
       if (color != 'Pink') {
-        let itemCost =
-          (prices[color]['low']
-          + prices[color]['high'])
-          * multiplier
+        let increment = (prices[color]['high'] - prices[color]['low'])/100
+        console.log(increment)
+        let itemCost = prices[color]['low'] + (multiplier * increment)
         newTally += itemCounts[color] * itemCost
       } else {
         newTally += itemCounts[color]
@@ -75,6 +79,10 @@ function App() {
 
   return (
     <Container>
+      <Row
+        style={{ color: 'black' }}>
+        Tally: ${tally.toFixed(2)}
+      </Row>
       {
         Object.keys(prices).map((colorName) => {
           return (
@@ -87,11 +95,9 @@ function App() {
             )
           )
         })
+      }{
+        Footer(handleMultiplier)
       }
-      <Row
-        style={{ color: 'black' }}>
-        Tally: ${tally.toFixed(2)}
-      </Row>
     </Container>
   );
 }
