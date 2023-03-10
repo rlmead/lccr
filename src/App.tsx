@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, Nav, Container, Row, Col } from 'reactstrap';
+import { Navbar, Container, Row, Col } from 'reactstrap';
 import ColorBar from './components/ColorBar';
 import Header from './components/Header';
 import './App.css';
@@ -58,22 +58,20 @@ function App() {
     setMultiplier(value)
   }
 
-  const calculate = () => {
-    let newTally = 0
-    for (const color in itemCounts) {
-      if (color != 'Pink') {
-        let increment = (prices[color]['high'] - prices[color]['low']) / 100
-        console.log(increment)
-        let itemCost = prices[color]['low'] + (multiplier * increment)
-        newTally += itemCounts[color] * itemCost
-      } else {
-        newTally += itemCounts[color]
-      }
-    }
-    setTally(newTally)
-  }
-
   useEffect(() => {
+    const calculate = () => {
+      let newTally = 0
+      for (const color in itemCounts) {
+        if (color !== 'Pink') {
+          let increment = (prices[color]['high'] - prices[color]['low']) / 100
+          let itemCost = prices[color]['low'] + (multiplier * increment)
+          newTally += itemCounts[color] * itemCost
+        } else {
+          newTally += itemCounts[color]
+        }
+      }
+      setTally(newTally)
+    }
     calculate()
   }, [itemCounts, multiplier])
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Navbar, Nav, Row, Col } from 'reactstrap';
+import { Input, Navbar, Row, Col } from 'reactstrap';
 
 function Header(handleMultiplier: (value: number) => void) {
   const [multiplier, setMultiplier] = useState(50)
 
   useEffect(() => {
-    console.log(multiplier);
     handleMultiplier(multiplier)
   }, [multiplier])
 

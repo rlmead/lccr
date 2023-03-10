@@ -29,14 +29,14 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
             {colorName}
           </div>
           {
-            colorName != 'Pink'
-              ? '$' + low.toFixed(2) + '-' + '$' + high.toFixed(2)
+            colorName !== 'Pink'
+              ? `$${low.toFixed(2)}-$${high.toFixed(2)}`
               : 'custom-priced'
           }
         </Col>
         <Col>
           {
-            colorName != 'Pink' ?
+            colorName !== 'Pink' ?
               <Row>
                 <Col className='col-2'>
                   <FontAwesomeIcon
@@ -54,6 +54,7 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
                     type='number'
                     min='0'
                     value={numItems}
+                    onChange={(e) => setNumItems(Number(e.target.value))}
                   />
                 </Col>
                 <Col className='col-2'>
