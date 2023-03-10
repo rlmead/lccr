@@ -24,7 +24,7 @@ function Footer(handleMultiplier: (value: number) => void) {
         className='mx-auto slidecontainer'
       >
         <Col
-          className='col-2 lead'
+          className='col-2 lead d-flex justify-content-end'
         >
           low
         </Col>
@@ -41,7 +41,7 @@ function Footer(handleMultiplier: (value: number) => void) {
           />
         </Col>
         <Col
-          className='col-2 lead'
+          className='col-2 lead d-flex justify-content-start'
         >
           high
         </Col>

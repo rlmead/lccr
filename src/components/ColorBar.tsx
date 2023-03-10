@@ -36,14 +36,14 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
               : 'custom-priced'
           }
         </Col>
-        <Col>
+        <Col className='d-flex align-items-center'>
           {
             colorName !== 'Pink' ?
-              <Row>
-                <Col className='col-2'>
+              <Row className='d-flex align-items-center'>
+                <Col className='col-2 d-flex justify-content-start'>
                   <FontAwesomeIcon
                     icon={faSquareMinus}
-                    className='fa-xl'
+                    className='fa-2xl'
                     style={{
                       cursor: 'pointer',
                       outline: 'none'
@@ -60,21 +60,21 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
                     onChange={(e) => setNumItems(Number(e.target.value))}
                   />
                 </Col>
-                <Col className='col-2'>
+                <Col className='col-2 d-flex justify-content-end'>
                   <FontAwesomeIcon
                     icon={faSquarePlus}
-                    className='fa-xl'
+                    className='fa-2xl'
                     style={{ cursor: 'pointer', outline: 'none' }}
                     onClick={addItem}
                   />
                 </Col>
               </Row>
               :
-              <Row>
-                <Col className='col-2'>
+              <Row className='d-flex align-items-center'>
+                <Col className='col-2 d-flex justify-content-start'>
                   <FontAwesomeIcon
                     icon={faDollar}
-                    className='fa-xl'
+                    className='fa-2xl'
                     style={{ outline: 'none' }}
                   />
                 </Col>
@@ -85,6 +85,8 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
                     min='0'
                     onChange={(e) => setNumItems(Number(e.target.value))}
                   />
+                </Col>
+                <Col className='col-2 d-flex justify-content-end'>
                 </Col>
               </Row>
           }
