@@ -3,19 +3,21 @@ import { Row, Col, Input } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareMinus, faSquarePlus, faDollar } from "@fortawesome/free-solid-svg-icons";
 
-function ColorBar(colorName: string, hex: string, low: number, high: number, handleItemCounts: (colorName: string, count: number) => void) {
-  const [numItems, setNumItems] = useState(0)
+function ColorBar(colorName: string, hex: string, low: number, high: number, handleItemCounts: (colorName: string, count: number | undefined) => void) {
+  const [numItems, setNumItems] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     handleItemCounts(colorName, numItems)
   }, [numItems])
 
   function removeItem() {
-    numItems > 0 && setNumItems(numItems - 1)
+    (typeof numItems == 'number' && numItems > 0) && setNumItems(numItems - 1)
   }
 
   function addItem() {
-    setNumItems(numItems + 1)
+    typeof numItems == 'number'
+      ? setNumItems(numItems + 1)
+      : setNumItems(1)
   }
 
   return (
@@ -29,19 +31,19 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
             {colorName}
           </div>
           {
-            colorName != 'Pink'
-              ? '$' + low.toFixed(2) + '-' + '$' + high.toFixed(2)
+            colorName !== 'Pink'
+              ? `$${low.toFixed(2)}-$${high.toFixed(2)}`
               : 'custom-priced'
           }
         </Col>
-        <Col>
+        <Col className='d-flex align-items-center'>
           {
-            colorName != 'Pink' ?
-              <Row>
-                <Col className='col-2'>
+            colorName !== 'Pink' ?
+              <Row className='d-flex align-items-center'>
+                <Col className='col-2 d-flex justify-content-start'>
                   <FontAwesomeIcon
                     icon={faSquareMinus}
-                    className='fa-xl'
+                    className='fa-2xl'
                     style={{
                       cursor: 'pointer',
                       outline: 'none'
@@ -52,34 +54,39 @@ function ColorBar(colorName: string, hex: string, low: number, high: number, han
                 <Col className='col-8'>
                   <Input
                     type='number'
+                    inputMode='numeric'
                     min='0'
                     value={numItems}
+                    onChange={(e) => setNumItems(Number(e.target.value))}
                   />
                 </Col>
-                <Col className='col-2'>
+                <Col className='col-2 d-flex justify-content-end'>
                   <FontAwesomeIcon
                     icon={faSquarePlus}
-                    className='fa-xl'
+                    className='fa-2xl'
                     style={{ cursor: 'pointer', outline: 'none' }}
                     onClick={addItem}
                   />
                 </Col>
               </Row>
               :
-              <Row>
-              <Col className='col-2'>
-                <FontAwesomeIcon
-                  icon={faDollar}
-                  className='fa-xl'
-                  style={{ outline: 'none' }}
-                />
-              </Col>
+              <Row className='d-flex align-items-center'>
+                <Col className='col-2 d-flex justify-content-start'>
+                  <FontAwesomeIcon
+                    icon={faDollar}
+                    className='fa-2xl'
+                    style={{ outline: 'none' }}
+                  />
+                </Col>
                 <Col className='col-8'>
                   <Input
                     type='number'
+                    inputMode='decimal'
                     min='0'
                     onChange={(e) => setNumItems(Number(e.target.value))}
                   />
+                </Col>
+                <Col className='col-2 d-flex justify-content-end'>
                 </Col>
               </Row>
           }
