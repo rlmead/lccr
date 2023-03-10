@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Input, Navbar, Row, Col } from 'reactstrap';
+import React from 'react';
+import { Navbar, Row, Col } from 'reactstrap';
 
 function Header(tally: number) {
   return (
@@ -11,7 +11,7 @@ function Header(tally: number) {
         <Col
           className='col-12 d-flex justify-content-center text-center'
         >
-          Suggested Total:
+          Suggested Total:<br/>
           ${tally.toFixed(2)}
         </Col>
       </Row>

@@ -51,8 +51,10 @@ function App() {
   const [itemCounts, setItemCounts] = useState<IItemCounts>({});
   const [multiplier, setMultiplier] = useState(0.5);
 
-  const handleItemCounts = (colorName: string, count: number) => {
-    setItemCounts({ ...itemCounts, [colorName]: count });
+  const handleItemCounts = (colorName: string, count: number | undefined ) => {
+    if (typeof count == 'number') {
+      setItemCounts({ ...itemCounts, [colorName]: count });
+    }
   };
 
   const handleMultiplier = (value: number) => {
