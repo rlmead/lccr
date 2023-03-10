@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Container, Row, Col } from 'reactstrap';
 import ColorBar from './components/ColorBar';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -66,7 +67,7 @@ function App() {
           let increment = (prices[color]['high'] - prices[color]['low']) / 100
           let itemCost = prices[color]['low'] + (multiplier * increment)
           let totalCost = itemCounts[color] * itemCost
-          newTally += Math.ceil(totalCost*20)/20
+          newTally += Math.ceil(totalCost * 20) / 20
         } else {
           newTally += itemCounts[color]
         }
@@ -78,9 +79,9 @@ function App() {
 
   return (
     <>
-      {
-        Header(handleMultiplier)
-      }
+    {
+      Header(tally)
+    }
       <Container>
         {
           Object.keys(prices).map((colorName) => {
@@ -95,18 +96,10 @@ function App() {
             )
           })
         }
-        <Navbar
-          className='m-0 p-0 fixed-bottom display-5'
-          style={{ backgroundColor: '#732982' }}
-        >
-          <Row className='mx-auto slidecontainer display-5'>
-            <Col
-              className='col-12 d-flex justify-content-center text-center'
-            >
-              Tally: ${tally.toFixed(2)}
-            </Col>
-          </Row>
-        </Navbar>
+        <Row className='p-2 m-5'/>
+        {
+          Footer(handleMultiplier)
+        }
       </Container>
     </>
   );
