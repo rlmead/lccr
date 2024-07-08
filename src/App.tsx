@@ -69,7 +69,7 @@ function App() {
           let increment = (prices[color]['high'] - prices[color]['low']) / 100
           let itemCost = prices[color]['low'] + (multiplier * increment)
           let totalCost = itemCounts[color] * itemCost
-          newTally += Math.ceil(totalCost * 20) / 20
+          newTally += Math.floor(totalCost * 20 ) / 20
         } else {
           newTally += itemCounts[color]
         }
