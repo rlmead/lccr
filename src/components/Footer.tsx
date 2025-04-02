@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Navbar, Row, Col } from 'reactstrap';
 
-function Footer(handleMultiplier: (value: number) => void) {
+function Footer(handleMultiplier: (value: number) => void, lowTally: number, highTally: number) {
   const [multiplier, setMultiplier] = useState(100)
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function Footer(handleMultiplier: (value: number) => void) {
         <Col
           className='col-2 lead d-flex justify-content-end'
         >
-          low
+          ${lowTally.toFixed(2)}
         </Col>
         <Col
           className='col-8 slidecontainer'
@@ -43,7 +43,7 @@ function Footer(handleMultiplier: (value: number) => void) {
         <Col
           className='col-2 lead d-flex justify-content-start'
         >
-          high
+        ${highTally.toFixed(2)}
         </Col>
       </Row>
     </Navbar>
