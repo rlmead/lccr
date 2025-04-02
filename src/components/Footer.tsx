@@ -22,9 +22,10 @@ function Footer(handleMultiplier: (value: number) => void, lowTally: number, hig
       </Row>
       <Row
         className='mx-auto slidecontainer'
-      >
+        size='sm'
+        >
         <Col
-          className='col-2 lead d-flex justify-content-end'
+          className='col-2 d-flex justify-content-end'
         >
           ${lowTally.toFixed(2)}
         </Col>
@@ -41,7 +42,7 @@ function Footer(handleMultiplier: (value: number) => void, lowTally: number, hig
           />
         </Col>
         <Col
-          className='col-2 lead d-flex justify-content-start'
+          className='col-2 d-flex justify-content-start'
         >
         ${highTally.toFixed(2)}
         </Col>
