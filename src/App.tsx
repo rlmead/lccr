@@ -48,6 +48,8 @@ function App() {
   }
 
   const [tally, setTally] = useState(0);
+  const [lowTally, setLowTally] = useState(0);
+  const [highTally, setHighTally] = useState(0);
   const [itemCounts, setItemCounts] = useState<IItemCounts>({});
   const [multiplier, setMultiplier] = useState(0.5);
 
@@ -64,17 +66,25 @@ function App() {
   useEffect(() => {
     const calculate = () => {
       let newTally = 0
+      let newLow = 0
+      let newHigh = 0
       for (const color in itemCounts) {
         if (color !== 'Pink') {
           let increment = (prices[color]['high'] - prices[color]['low']) / 100
           let itemCost = prices[color]['low'] + (multiplier * increment)
           let totalCost = itemCounts[color] * itemCost
           newTally += Math.floor(totalCost * 20) / 20
+          newLow += itemCounts[color] * prices[color]['low']
+          newHigh += itemCounts[color] * prices[color]['high']
         } else {
           newTally += itemCounts[color]
+          newLow += itemCounts[color]
+          newHigh += itemCounts[color]
         }
       }
       setTally(newTally)
+      setLowTally(newLow)
+      setHighTally(newHigh)
     }
     calculate()
   }, [itemCounts, multiplier])
@@ -100,7 +110,7 @@ function App() {
         }
         <Row className='p-2 m-5'/>
         {
-          Footer(handleMultiplier)
+          Footer(handleMultiplier, lowTally, highTally)
         }
       </Container>
     </>
