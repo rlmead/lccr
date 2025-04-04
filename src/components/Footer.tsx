@@ -25,12 +25,12 @@ function Footer(handleMultiplier: (value: number) => void, lowTally: number, hig
         size='sm'
         >
         <Col
-          className='col-2 d-flex justify-content-end'
+          className='col-3 d-flex justify-content-center'
         >
           ${lowTally.toFixed(2)}
         </Col>
         <Col
-          className='col-8 slidecontainer'
+          className='col-6 slidecontainer'
         >
           <Input
             type='range'
@@ -42,7 +42,7 @@ function Footer(handleMultiplier: (value: number) => void, lowTally: number, hig
           />
         </Col>
         <Col
-          className='col-2 d-flex justify-content-start'
+          className='col-3 d-flex justify-content-center'
         >
         ${highTally.toFixed(2)}
         </Col>
