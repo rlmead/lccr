@@ -19,7 +19,7 @@ function App() {
   const prices: IPrices = {
     'Red': {
       hex: '#E40303',
-      low: 0.05,
+      low: 0.25,
       high: 1.00,
     },
     'Orange': {
