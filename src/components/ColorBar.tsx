@@ -3,8 +3,18 @@ import { Row, Col, Input } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareMinus, faSquarePlus, faDollar } from "@fortawesome/free-solid-svg-icons";
 
+const storedItemCounts: string|null = window.localStorage.getItem('itemCounts');
+
 function ColorBar(colorName: string, hex: string, low: number, high: number, handleItemCounts: (colorName: string, count: number | undefined) => void) {
-  const [numItems, setNumItems] = useState<number | undefined>(undefined)
+    let startingCount: number = 0;
+    if (storedItemCounts !== null) {
+    const parsedItemCounts = JSON.parse(storedItemCounts)
+    if (parsedItemCounts[colorName]) {
+      startingCount = parsedItemCounts[colorName]
+    }
+  }
+
+  const [numItems, setNumItems] = useState<number>(startingCount)
 
   useEffect(() => {
     handleItemCounts(colorName, numItems)

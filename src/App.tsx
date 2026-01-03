@@ -6,12 +6,16 @@ import Header from './components/Header';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const storedItemCounts: string|null = window.localStorage.getItem('itemCounts');
+const storedMultiplier: string|null = window.localStorage.getItem('multiplier');
+
 function App() {
   interface IPrices {
     [colorName: string]: {
       [key: string]: any
     }
   }
+
   interface IItemCounts {
     [colorName: string]: number
   }
@@ -47,11 +51,22 @@ function App() {
     }
   }
 
+  let startingItemCounts = {}
+  if (storedItemCounts !== null) {
+    const parsedItemCounts = JSON.parse(storedItemCounts)
+    startingItemCounts = parsedItemCounts
+  }
+
+  let startingMultiplier = 0.5
+  if (storedMultiplier !== null) {
+    startingMultiplier = JSON.parse(storedMultiplier)
+  }
+
   const [tally, setTally] = useState(0);
   const [lowTally, setLowTally] = useState(0);
   const [highTally, setHighTally] = useState(0);
-  const [itemCounts, setItemCounts] = useState<IItemCounts>({});
-  const [multiplier, setMultiplier] = useState(0.5);
+  const [itemCounts, setItemCounts] = useState<IItemCounts>(startingItemCounts);
+  const [multiplier, setMultiplier] = useState(startingMultiplier);
 
   const handleItemCounts = (colorName: string, count: number | undefined ) => {
     if (typeof count == 'number') {
@@ -62,6 +77,14 @@ function App() {
   const handleMultiplier = (value: number) => {
     setMultiplier(value)
   }
+
+  useEffect(() => {
+    window.localStorage.setItem('itemCounts',JSON.stringify(itemCounts));
+  }, [itemCounts])
+
+  useEffect(() => {
+    window.localStorage.setItem('multiplier',JSON.stringify(multiplier));
+  }, [multiplier])
 
   useEffect(() => {
     const calculate = () => {
